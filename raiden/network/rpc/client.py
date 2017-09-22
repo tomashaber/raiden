@@ -288,7 +288,7 @@ def decode_topic(topic):
 
 
 def get_block_gas_limit():
-    print "get_block_gas_limit:"+client_settings['block_gas_limit']
+    print "get_block_gas_limit:"+str(client_settings['block_gas_limit'])
     return client_settings['block_gas_limit']
 
 
@@ -340,7 +340,7 @@ class BlockChainService(object):
     def block_gas_limit(self, blocknumber):
         block = self.client.call('eth_getBlockByNumber', quantity_encoder(blocknumber), False)
         limit = int(block['gasLimit'], 0)
-        print "block_gas_limit:"+limit
+        print "block_gas_limit:"+str(limit)
         return limit
 
     def is_synced(self):
