@@ -310,7 +310,7 @@ def estimate_and_transact(classobject, callobj, *args):
     #     startgas=classobject.startgas,
     #     gasprice=classobject.gasprice
     # )
-    estimated_gas = GAS_LIMIT
+    estimated_gas = get_block_gas_limit()
     transaction_hash = callobj.transact(
         *args,
         startgas=estimated_gas,
