@@ -293,6 +293,7 @@ def get_block_gas_limit():
 
 
 def set_block_gas_limit(gas_limit):
+
     client_settings['block_gas_limit'] = gas_limit
 
 
@@ -335,12 +336,15 @@ class BlockChainService(object):
         self.poll_timeout = poll_timeout
 
     def block_number(self):
-        return self.client.blocknumber()
+        blocknumber = self.client.blocknumber()
+        block = self.client.call('eth_getBlockByNumber', quantity_encoder(blocknumber), False)
+        limit = int(block['gasLimit'], 0)
+        print "block_gas_limit:" + str(limit)
+        return blocknumber
 
     def block_gas_limit(self, blocknumber):
         block = self.client.call('eth_getBlockByNumber', quantity_encoder(blocknumber), False)
         limit = int(block['gasLimit'], 0)
-        print "block_gas_limit:"+str(limit)
         return limit
 
     def is_synced(self):
