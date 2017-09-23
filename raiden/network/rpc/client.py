@@ -316,7 +316,7 @@ def estimate_and_transact(classobject, callobj, *args):
     limit = int(block['gasLimit'], 0)
     print limit
     print get_block_gas_limit()
-    estimated_gas = limit
+    estimated_gas = get_block_gas_limit()
     transaction_hash = callobj.transact(
         *args,
         startgas=estimated_gas,
