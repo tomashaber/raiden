@@ -311,7 +311,12 @@ def estimate_and_transact(classobject, callobj, *args):
     #     startgas=classobject.startgas,
     #     gasprice=classobject.gasprice
     # )
-    estimated_gas = get_block_gas_limit()
+    blocknumber = classobject.client.blocknumber()
+    block = classobject.client.call('eth_getBlockByNumber', quantity_encoder(blocknumber), False)
+    limit = int(block['gasLimit'], 0)
+    print limit
+    print get_block_gas_limit()
+    estimated_gas = limit
     transaction_hash = callobj.transact(
         *args,
         startgas=estimated_gas,
@@ -337,9 +342,6 @@ class BlockChainService(object):
 
     def block_number(self):
         blocknumber = self.client.blocknumber()
-        block = self.client.call('eth_getBlockByNumber', quantity_encoder(blocknumber), False)
-        limit = int(block['gasLimit'], 0)
-        print "block_gas_limit:" + str(limit)
         return blocknumber
 
     def block_gas_limit(self, blocknumber):
